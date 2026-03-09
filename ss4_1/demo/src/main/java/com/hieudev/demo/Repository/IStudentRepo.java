@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface IStudentRepo {
     List<Student> getStudents();
+
+    void addStudent(Student student);
+
+    Student findById(int id);
 }

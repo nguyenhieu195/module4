@@ -16,4 +16,14 @@ public class StudentService implements IStudentService {
     public List<Student> getStudents() {
         return studentRepo.getStudents();
     }
+
+    @Override
+    public void save(Student student) {
+        studentRepo.addStudent(student);
+    }
+
+    @Override
+    public Student findById(int id) {
+        return studentRepo.findById(id);
+    }
 }

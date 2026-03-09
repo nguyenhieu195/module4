@@ -25,5 +25,18 @@ public class StudentRepo implements IStudentRepo{
         return students;
     }
 
+    @Override
+    public void addStudent(Student student) {
+        students.add(student);
+    }
 
+    @Override
+    public Student findById(int id) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
+            }
+        }
+        return null;
+    }
 }

@@ -74,7 +74,7 @@
 <div class="container">
 
     <h2>Danh sách sinh viên</h2>
-
+    <a href="/student/add">thêm</a>
     <table>
 
         <tr>

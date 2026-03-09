@@ -6,6 +6,5 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<c:redirect url="/list"></c:redirect>
 </body>
 </html>
