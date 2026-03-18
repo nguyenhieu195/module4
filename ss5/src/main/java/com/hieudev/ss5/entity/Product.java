@@ -1,4 +1,4 @@
-package com.hieudev.ss3.entity;
+package com.hieudev.ss5.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

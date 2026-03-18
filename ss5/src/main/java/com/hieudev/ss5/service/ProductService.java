@@ -1,7 +1,7 @@
-package com.hieudev.ss3.service;
+package com.hieudev.ss5.service;
 
-import com.hieudev.ss3.entity.Product;
-import com.hieudev.ss3.repository.ProductRepository;
+import com.hieudev.ss5.entity.Product;
+import com.hieudev.ss5.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +38,8 @@ public class ProductService implements IProductService {
         products.remove(id);
     }
 
-    @Override
-    public List<Product> searchByName(String name) {
-        return products.searchByName(name);
-    }
+//    @Override
+//    public List<Product> searchByName(String name) {
+//        return products.searchByName(name);
+//    }
 }
