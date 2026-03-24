@@ -16,4 +16,11 @@ public interface IBlogService {
 
     // xoá theo id
     void delete(int id);
+
+    // list blog theo tên
+    List<Blog> findAllByTitle(String title);
+
+    List<Blog> findAllByContent(String title);
+
+    List<Blog> findAllByAuthor(String title);
 }

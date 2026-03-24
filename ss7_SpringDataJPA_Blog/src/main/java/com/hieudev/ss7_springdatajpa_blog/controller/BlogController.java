@@ -53,4 +53,20 @@ public class BlogController {
         model.addAttribute("blog", blog);
         return "blogs/detail";
     }
+
+    // tìm kiếm theo tên
+    @GetMapping("/search")
+    public String search(@RequestParam("key") String key, ModelMap model) {
+        List<Blog> blogs = iBlogService.findAllByTitle(key);
+
+        if (blogs.isEmpty()) {
+            blogs = iBlogService.findAllByAuthor(key);
+        }
+
+        if (blogs.isEmpty()) {
+            blogs = iBlogService.findAllByContent(key);
+        }
+        model.addAttribute("blogs",blogs);
+        return "blogs/list";
+    }
 }

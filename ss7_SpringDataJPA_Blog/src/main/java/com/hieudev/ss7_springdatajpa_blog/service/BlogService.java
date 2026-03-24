@@ -36,4 +36,19 @@ public class BlogService implements IBlogService {
     public void delete(int id) {
         blogRepository.deleteById(id);
     }
+
+    @Override
+    public List<Blog> findAllByTitle(String title) {
+        return blogRepository.findAllByTitle(title);
+    }
+
+    @Override
+    public List<Blog> findAllByContent(String content) {
+        return blogRepository.findAllByContent(content);
+    }
+
+    @Override
+    public List<Blog> findAllByAuthor(String author) {
+        return blogRepository.findAllByAuthor(author);
+    }
 }
