@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm bài hát</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #e8f5e9; font-family: 'Segoe UI', sans-serif; }
+        .card { border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        .form-title { color: #2e7d32; font-weight: bold; }
+        .form-control:focus { border-color: #43a047; box-shadow: 0 0 8px rgba(67,160,71,0.3); }
+        .btn-primary { background-color: #43a047; border-color: #43a047; font-weight: bold; transition: all 0.3s; }
+        .btn-primary:hover { background-color: #2e7d32; border-color: #2e7d32; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
+        .text-danger { font-size: 0.9em; font-style: italic; }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center form-title">Thêm bài hát</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <form th:action="@{/save-song}" th:object="${song}" method="post">
+                    <!-- Song Name -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên bài hát</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Nhập tên bài hát">
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                    </div>
+
+                    <!-- Artist -->
+                    <div class="mb-3">
+                        <label for="artist" class="form-label">Nghệ sĩ</label>
+                        <input type="text" th:field="*{artist}" class="form-control" id="artist" placeholder="Nhập tên nghệ sĩ">
+                        <div class="text-danger" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></div>
+                    </div>
+
+                    <!-- Genre -->
+                    <div class="mb-3">
+                        <label for="genre" class="form-label">Thể loại</label>
+                        <input type="text" th:field="*{genre}" class="form-control" id="genre" placeholder="Nhập thể loại (vd: Pop, Rock)">
+                        <div class="text-danger" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Lưu bài hát</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
