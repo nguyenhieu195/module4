@@ -1,8 +1,10 @@
 package com.hieudev.ss8_validate_formlogin.controller;
 
+import com.hieudev.ss8_validate_formlogin.dto.UserDto;
 import com.hieudev.ss8_validate_formlogin.entity.User;
 import com.hieudev.ss8_validate_formlogin.service.IUserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,16 +21,20 @@ public class UserController {
 
     @GetMapping("/add")
     public String showAddUserForm(ModelMap model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
         return "add";
     }
 
     @PostMapping("/save-user")
-    public String home(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model) {
+    public String home(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, ModelMap model) {
 
         if (result.hasErrors()) {
             return "add";
         }
+
+        User user = new User();
+        BeanUtils.copyProperties(userDto, user);
+
         boolean success = iUserService.save(user);
         if (success) {
             model.addAttribute("user", user);

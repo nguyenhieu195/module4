@@ -1,8 +1,11 @@
 package com.hieudev.ss8_validate_song.controller;
 
+import com.hieudev.ss8_validate_song.dto.SongDto;
 import com.hieudev.ss8_validate_song.entity.Song;
 import com.hieudev.ss8_validate_song.service.ISongService;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,19 +20,21 @@ public class SongController {
 
     @GetMapping("/add-song")
     public String showAddForm(ModelMap model) {
-        model.addAttribute("song", new Song());
+        model.addAttribute("song", new SongDto());
         return "add-song";
     }
 
     @PostMapping("/save-song")
-    public String saveSong(@Valid @ModelAttribute("song") Song song,
+    public String saveSong(@Valid @ModelAttribute("song") SongDto songDto,
                            BindingResult result,
                            ModelMap model) {
         if (result.hasErrors()) {
             return "add-song";
         }
+        Song song = new Song();
+        BeanUtils.copyProperties(songDto, song);
         songService.save(song);
-        model.addAttribute("song", song);
+        model.addAttribute("song", songDto);
         return "song-success";
     }
 
@@ -41,14 +46,16 @@ public class SongController {
     }
 
     @PostMapping("/update-song")
-    public String updateSong(@Valid @ModelAttribute("song") Song song,
+    public String updateSong(@Valid @ModelAttribute("song") SongDto songDto,
                              BindingResult result,
                              ModelMap model) {
         if (result.hasErrors()) {
             return "edit-song";
         }
+        Song song = new Song();
+        BeanUtils.copyProperties(songDto, song);
         songService.save(song);
-        model.addAttribute("song", song);
+        model.addAttribute("song", songDto);
         return "song-success";
     }
 }
