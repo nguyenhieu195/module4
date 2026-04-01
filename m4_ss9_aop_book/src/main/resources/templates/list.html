@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <!-- UI Enhancement: Added modern font and shared CSS for consistent styling -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- UI Enhancement: Wrapped content in container for modern card-like layout -->
+    <div class="container">
+        <h1>Book List</h1>
+        <!-- UI Enhancement: Added book-table class for modern table styling with hover effects -->
+        <table class="book-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.quantity}"></td>
+                    <!-- UI Enhancement: Added link class for hover underline effect -->
+                    <td><a th:href="@{/books/{id}(id=${book.id})}" class="link">View Details</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- UI Enhancement: Added btn-secondary class for consistent button styling -->
+        <a href="/return" class="btn btn-secondary">Return Book</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Return Book</title>
+    <!-- UI Enhancement: Added modern font and shared CSS for consistent styling -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- UI Enhancement: Wrapped content in container for modern card-like layout -->
+    <div class="container">
+        <h1>Return Book</h1>
+        <!-- UI Enhancement: Added book-card class for modern card styling with slide-in animation -->
+        <div class="book-card">
+            <form action="/return" method="post">
+                <!-- UI Enhancement: Added form-group and form-label classes for better form styling -->
+                <div class="form-group">
+                    <label for="code" class="form-label">Borrow Code:</label>
+                    <!-- UI Enhancement: Added form-input class for modern input styling with focus animation -->
+                    <input type="text" id="code" name="code" required class="form-input">
+                </div>
+                <!-- UI Enhancement: Added btn-primary class for modern button styling with hover effects -->
+                <button type="submit" class="btn btn-primary">Return Book</button>
+            </form>
+        </div>
+        <!-- UI Enhancement: Added btn-secondary class for consistent button styling -->
+        <a href="/books" class="btn btn-secondary">Back to List</a>
+    </div>
+</body>
+</html>

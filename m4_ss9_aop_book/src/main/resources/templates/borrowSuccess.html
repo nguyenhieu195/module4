@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrow Success</title>
+    <!-- UI Enhancement: Added modern font and shared CSS for consistent styling -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- UI Enhancement: Wrapped content in container for modern card-like layout -->
+    <div class="container">
+        <h1>Borrow Successful</h1>
+        <!-- UI Enhancement: Added success-message class for animated success notification -->
+        <div class="success-message">
+            <p>Your borrow code is:</p>
+            <!-- UI Enhancement: Added borrow-code class for prominent display of the code -->
+            <div class="borrow-code" th:text="${code}"></div>
+        </div>
+        <!-- UI Enhancement: Added btn-secondary class for consistent button styling -->
+        <a href="/books" class="btn btn-secondary">Back to List</a>
+    </div>
+</body>
+</html>

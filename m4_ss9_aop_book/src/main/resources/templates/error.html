@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <!-- UI Enhancement: Added modern font and shared CSS for consistent styling -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- UI Enhancement: Wrapped content in container for modern card-like layout -->
+    <div class="container">
+        <h1>An Error Occurred</h1>
+        <!-- UI Enhancement: Added error-message class for animated error notification -->
+        <div class="error-message">
+            <p>Sorry, something went wrong. Please try again.</p>
+        </div>
+        <!-- UI Enhancement: Added btn-secondary class for consistent button styling -->
+        <a href="/books" class="btn btn-secondary">Back to Book List</a>
+    </div>
+</body>
+</html>

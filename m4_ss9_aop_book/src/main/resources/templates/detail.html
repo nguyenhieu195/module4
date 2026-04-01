@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Detail</title>
+    <!-- UI Enhancement: Added modern font and shared CSS for consistent styling -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- UI Enhancement: Wrapped content in container for modern card-like layout -->
+    <div class="container">
+        <h1>Book Detail</h1>
+        <!-- UI Enhancement: Added book-card class for modern card styling with slide-in animation -->
+        <div class="book-card">
+            <!-- UI Enhancement: Used CSS Grid for better layout on larger screens -->
+            <div class="book-detail">
+                <div class="book-info">
+                    <p><strong>ID:</strong> <span th:text="${book.id}"></span></p>
+                    <p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+                    <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+                    <p><strong>Quantity:</strong> <span th:text="${book.quantity}"></span></p>
+                </div>
+                <div>
+                    <!-- UI Enhancement: Added conditional styling for out of stock message -->
+                    <form th:if="${book.quantity > 0}" th:action="@{/borrow/{id}(id=${book.id})}" method="post">
+                        <!-- UI Enhancement: Added btn-primary class for modern button styling with hover effects -->
+                        <button type="submit" class="btn btn-primary">Borrow Book</button>
+                    </form>
+                    <p th:if="${book.quantity == 0}" class="error-message">Out of stock</p>
+                </div>
+            </div>
+        </div>
+        <!-- UI Enhancement: Added btn-secondary class for consistent button styling -->
+        <a href="/books" class="btn btn-secondary">Back to List</a>
+    </div>
+</body>
+</html>
