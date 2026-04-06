@@ -42,4 +42,9 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
                     "OR content LIKE CONCAT('%', :key, '%')",
             nativeQuery = true)
     List<Blog> searchAll(String key);
+
+    @Query(value = "SELECT DISTINCT category FROM blog", nativeQuery = true)
+    List<String> findAllCategories();
+
+    List<Blog> findAllByCategory(String category);
 }

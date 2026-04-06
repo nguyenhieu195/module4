@@ -24,4 +24,8 @@ public interface IBlogService {
 
     Page<Blog> searchAll(String title, Pageable pageable);
     List<Blog> searchAll(String title);
+
+    List<String> findAllCategories();
+
+    List<Blog> findAllByCategory(String category);
 }

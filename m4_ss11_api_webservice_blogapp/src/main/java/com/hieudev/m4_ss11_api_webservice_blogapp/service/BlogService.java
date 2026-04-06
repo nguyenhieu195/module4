@@ -29,10 +29,12 @@ public class BlogService implements IBlogService {
     public Page<Blog> findAll(Pageable pageable) {
         return blogRepository.findAll(pageable);
     }
+
     @Override
     public List<Blog> findAll() {
         return blogRepository.findAll();
     }
+
     @Override
     public Blog findById(int id) {
         return blogRepository.findById(id).orElse(null);
@@ -45,11 +47,19 @@ public class BlogService implements IBlogService {
 
     @Override
     public Page<Blog> searchAll(String title, Pageable pageable) {
-        return blogRepository.searchAll(title,  pageable);
+        return blogRepository.searchAll(title, pageable);
     }
 
     @Override
     public List<Blog> searchAll(String title) {
         return blogRepository.searchAll(title);
+    }
+
+    public List<String> findAllCategories(){
+        return blogRepository.findAllCategories();
+    }
+
+    public List<Blog> findAllByCategory(String category){
+        return blogRepository.findAllByCategory(category);
     }
 }
