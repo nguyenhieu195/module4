@@ -33,18 +33,18 @@ public class BlogController {
         return iBlogService.findAll();
     }
 
-    @GetMapping("/listtt")
-    public  List home1(ModelMap model){
-        List<Blog> blogs = iBlogService.findAll();
-        return blogs;
-    }
+//    @GetMapping("/listtt")
+//    public  List home1(ModelMap model){
+//        List<Blog> blogs = iBlogService.findAll();
+//        return blogs;
+//    }
 
     // hiển thị form tạo
-    @GetMapping("/create")
-    public String showFormCreate(Model model) {
-        model.addAttribute("blog", new Blog());
-        return "blogs/create";
-    }
+//    @GetMapping("/create")
+//    public String showFormCreate(Model model) {
+//        model.addAttribute("blog", new Blog());
+//        return "blogs/create";
+//    }
 
     // tạo blog mới
 //    @PostMapping("/create")
@@ -53,37 +53,48 @@ public class BlogController {
 //        return "redirect:/blogs/list";
 //    }
 
-    @ResponseBody
     @PostMapping("/createe")
     public Blog create2(@RequestBody Blog blog) {
         return iBlogService.save(blog);
     }
 
     // xoá blog
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") Integer id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
         iBlogService.delete(id);
-        return "redirect:/blogs/list";
     }
+//    @GetMapping("/delete")
+//    public String delete(@RequestParam("id") Integer id) {
+//        iBlogService.delete(id);
+//        return "redirect:/blogs/list";
+//    }
 
     // xem chi tiết
-    @GetMapping("/detail")
-    public String details(@RequestParam("id") Integer id, ModelMap model) {
-        Blog blog = iBlogService.findById(id);
-        if (blog == null) {
-            return "redirect:/blogs/list";  // Nếu blog không tồn tại, quay về danh sách
-        }
-        model.addAttribute("blog", blog);
-        return "blogs/detail";
+    @GetMapping("/{id}")
+    public Blog getById(@PathVariable Integer id) {
+        return iBlogService.findById(id);
     }
+//    @GetMapping("/detail")
+//    public String details(@RequestParam("id") Integer id, ModelMap model) {
+//        Blog blog = iBlogService.findById(id);
+//        if (blog == null) {
+//            return "redirect:/blogs/list";  // Nếu blog không tồn tại, quay về danh sách
+//        }
+//        model.addAttribute("blog", blog);
+//        return "blogs/detail";
+//    }
 
     // tìm kiếm theo tên
     @GetMapping("/search")
-    public String search(@RequestParam("key") String key,
-                         ModelMap model,
-                         @PageableDefault(size = 5) Pageable pageable) {
-        model.addAttribute("blogs",iBlogService.searchAll(key, pageable));
-        model.addAttribute("key",key); // giữ lại keyword khi chuyển trang
-        return "blogs/list";
+    public List<Blog> search(@RequestParam String key) {
+        return iBlogService.searchAll(key);
     }
+//    @GetMapping("/search")
+//    public String search(@RequestParam("key") String key,
+//                         ModelMap model,
+//                         @PageableDefault(size = 5) Pageable pageable) {
+//        model.addAttribute("blogs", iBlogService.searchAll(key, pageable));
+//        model.addAttribute("key", key); // giữ lại keyword khi chuyển trang
+//        return "blogs/list";
+//    }
 }

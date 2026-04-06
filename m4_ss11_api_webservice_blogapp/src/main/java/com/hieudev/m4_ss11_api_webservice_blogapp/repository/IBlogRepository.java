@@ -32,4 +32,14 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
             nativeQuery = true)
     Page<Blog> searchAll(@Param("key") String key, Pageable pageable);
 
+    @Query(value = "SELECT * FROM blog " +
+            "WHERE title LIKE CONCAT('%', :key, '%') " +
+            "OR author LIKE CONCAT('%', :key, '%') " +
+            "OR content LIKE CONCAT('%', :key, '%')",
+            countQuery = "SELECT COUNT(*) FROM blog " +
+                    "WHERE title LIKE CONCAT('%', :key, '%') " +
+                    "OR author LIKE CONCAT('%', :key, '%') " +
+                    "OR content LIKE CONCAT('%', :key, '%')",
+            nativeQuery = true)
+    List<Blog> searchAll(String key);
 }

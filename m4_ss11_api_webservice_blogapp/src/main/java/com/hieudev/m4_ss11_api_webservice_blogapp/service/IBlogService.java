@@ -23,4 +23,5 @@ public interface IBlogService {
     // list blog theo tên
 
     Page<Blog> searchAll(String title, Pageable pageable);
+    List<Blog> searchAll(String title);
 }

@@ -48,5 +48,8 @@ public class BlogService implements IBlogService {
         return blogRepository.searchAll(title,  pageable);
     }
 
-    public List<Blog> getListCategory(String title) {}
+    @Override
+    public List<Blog> searchAll(String title) {
+        return blogRepository.searchAll(title);
+    }
 }
