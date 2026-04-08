@@ -11,16 +11,6 @@ import java.util.List;
 
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
 
-    // tìm kiếm chính xác
-//    List<Blog> findAllByTitle(String title);
-
-    // tìm kiếm gần đúng
-//    @Query(value = "SELECT * FROM blog " +
-//            "WHERE title LIKE CONCAT('%', :key, '%') " +
-//            "OR author LIKE CONCAT('%', :key, '%') " +
-//            "OR content LIKE CONCAT('%', :key, '%')",
-//            nativeQuery = true)
-//    Page<Blog> searchAll(@Param("key") String key, Pageable pageable);
     @Query(value = "SELECT * FROM blog " +
             "WHERE title LIKE CONCAT('%', :key, '%') " +
             "OR author LIKE CONCAT('%', :key, '%') " +

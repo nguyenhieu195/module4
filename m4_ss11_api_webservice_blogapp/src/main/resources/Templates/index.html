@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div>
+    <input type="text" placeholder="search name..." name="" id="search-key">
+    <button id="btn-search">search</button>
+    <table>
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>title</td>
+            <td>content</td>
+            <td>author</td>
+            <td>category</td>
+            <td>created day</td>
+            <td>summary</td>
+        </tr>
+        </thead>
+        <tbody id="list-blogs"></tbody>
+    </table>
+    <div id="pagination"></div>
+</div>
+</body>
+<script>
+
+    let currentPage = 0;
+    let currentKey = "";
+
+    $(document).ready(function () {
+        getListBlogs();
+        $("#btn-search").click(function () {
+            currentKey = $("#search-key").val();
+            currentPage = 0;
+            getListBlogs();
+        })
+    });
+
+    function getListBlogs() {
+        let url = "http://localhost:8080/api/v1/blogs";
+        if (currentKey && currentKey.trim() !== "") {
+            url = `http://localhost:8080/api/v1/blogs/search?key=${currentKey}`;
+        }
+        $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                data: {
+                    page: currentPage,
+                    size: 5
+                },
+                success: function (data) {
+                    let list = "";
+                    let blogs = data.content;
+                    if (!blogs || blogs.length === 0) {
+                        $("#list-blogs").html("<tr><td colspan='7'>No data</td></tr>");
+                        $("#pagination").html("");
+                        return;
+                    }
+                    for (let i = 0; i < blogs.length; i++) {
+                        let blog = blogs[i];
+                        list += `<tr>
+                                    <td>${blog.id}</td>
+                                    <td>${blog.title}</td>
+                                    <td>${blog.content}</td>
+                                    <td>${blog.author}</td>
+                                    <td>${blog.category}</td>
+                                    <td>${blog.createdDay}</td>
+                                    <td>${blog.summary}</td>
+                                </tr>`;
+                    }
+                    $("#list-blogs").html(list);
+                    renderPagination(data);
+                },
+                error: function (err) {
+                    $("#list-blogs").html("<tr><td colspan='7'>Error loading data</td></tr>");
+                }
+            }
+        );
+    }
+
+    function renderPagination(data) {
+        let totalPage = data.totalPages;
+        let current = data.number;
+
+        let html = "";
+
+        //prev
+        if (current > 0) {
+            html += `<button onclick="changPage(${current - 1})">Prev</button>`;
+        }
+
+        //page number
+        for (let i = 0; i < totalPage; i++) {
+            html += `<button onclick="changPage(${i})"
+                            ${i === current ? "style='font-weight:bold;'" : ""}>
+                ${i + 1}
+            </button>`;
+        }
+
+        // next
+        if (current < totalPage - 1) {
+            html += `<button onclick="changPage(${current + 1})">Next</button>`;
+        }
+
+        $("#pagination").html(html);
+    }
+
+    function changPage(page) {
+        currentPage = page;
+        getListBlogs();
+    }
+</script>
+</html>

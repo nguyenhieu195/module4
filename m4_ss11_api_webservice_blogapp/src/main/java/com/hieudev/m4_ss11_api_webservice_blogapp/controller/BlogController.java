@@ -3,6 +3,9 @@ package com.hieudev.m4_ss11_api_webservice_blogapp.controller;
 import com.hieudev.m4_ss11_api_webservice_blogapp.entity.Blog;
 import com.hieudev.m4_ss11_api_webservice_blogapp.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/blogs")
+@CrossOrigin
 public class BlogController {
 
     @Autowired
@@ -18,8 +22,8 @@ public class BlogController {
 
     // Lấy danh sách blog
     @GetMapping
-    public ResponseEntity<List<Blog>> getAllBlogs() {
-        List<Blog> blogs = iBlogService.findAll();
+    public ResponseEntity<Page<Blog>> getAllBlogs(@PageableDefault(page = 0, size = 5, sort = "id") Pageable pageable) {
+        Page<Blog> blogs = iBlogService.findAll(pageable);
 
         if (blogs.isEmpty()) {
             return ResponseEntity.noContent().build(); // 204
@@ -27,6 +31,16 @@ public class BlogController {
 
         return ResponseEntity.ok(blogs); // 200
     }
+//    @GetMapping
+//    public ResponseEntity<List<Blog>> getAllBlogs() {
+//        List<Blog> blogs = iBlogService.findAll();
+//
+//        if (blogs.isEmpty()) {
+//            return ResponseEntity.noContent().build(); // 204
+//        }
+//
+//        return ResponseEntity.ok(blogs); // 200
+//    }
 
     // Tạo blog
     @PostMapping
@@ -62,8 +76,15 @@ public class BlogController {
 
     // Tìm kiếm
     @GetMapping("/search")
-    public ResponseEntity<List<Blog>> search(@RequestParam String key) {
-        List<Blog> blogs = iBlogService.searchAll(key);
+    public ResponseEntity<Page<Blog>> search(@RequestParam(required = false) String key,
+                                             @PageableDefault(page = 0, size = 5, sort = "id") Pageable pageable) {
+        Page<Blog> blogs;
+
+        if (key == null || key.trim().isEmpty()) {
+            blogs = iBlogService.findAll(pageable);
+        } else {
+            blogs = iBlogService.searchAll(key.trim(), pageable);
+        }
 
         if (blogs.isEmpty()) {
             return ResponseEntity.noContent().build(); // 204
@@ -71,6 +92,17 @@ public class BlogController {
 
         return ResponseEntity.ok(blogs); // 200
     }
+// Tìm kiếm
+//    @GetMapping("/search")
+//    public ResponseEntity<List<Blog>> search(@RequestParam String key) {
+//        List<Blog> blogs = iBlogService.searchAll(key);
+//
+//        if (blogs.isEmpty()) {
+//            return ResponseEntity.noContent().build(); // 204
+//        }
+//
+//        return ResponseEntity.ok(blogs); // 200
+//    }
 
     // Danh sách category
     @GetMapping("/categories")
